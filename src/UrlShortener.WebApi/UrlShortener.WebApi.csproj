@@ -18,4 +18,8 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\UrlShortener.Application\UrlShortener.Application.csproj" />
+    </ItemGroup>
+
 </Project>
