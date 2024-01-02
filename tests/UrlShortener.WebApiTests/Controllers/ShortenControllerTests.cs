@@ -1,50 +1,31 @@
 using System.Net;
 using System.Net.Http.Json;
 
+using Microsoft.AspNetCore.Mvc.Testing;
+
 using UrlShortener.Application;
 
-namespace UrlShortener.WebApiTests.Controllers
+namespace UrlShortener.WebApiTests.Controllers;
+
+public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Program>>
 {
-    public class ShortenControllerTests
+    private readonly WebApplicationFactory<Program> _factory;
+
+    public ShortenControllerTests(WebApplicationFactory<Program> factory)
     {
-        [Fact]
-        public async Task Shorten_WhenPassingLongUrl_ItShouldReturnShort()
-        {
-            const string longUrl = "https://www.example.com";
-            var shortUrl = ShortenUrl.Shorten(longUrl);
-
-            var httpResponseMessage = new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = JsonContent.Create(shortUrl)
-            };
-
-            // Criar uma classe derivada de HttpMessageHandler para substituição
-            var messageHandler = new TestHttpMessageHandler(httpResponseMessage);
-
-            var httpClient = new HttpClient(messageHandler);
-
-            var response = await httpClient.PostAsJsonAsync("http://localhost:5230/v1/shorten", new UrlRequest(longUrl));
-
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(shortUrl, await response.Content.ReadAsStringAsync());
-        }
+        _factory = factory;
     }
 
-    // Classe derivada de HttpMessageHandler para substituição
-    public class TestHttpMessageHandler : HttpMessageHandler
+    [Fact]
+    public async Task Shorten_WhenPassingLongUrl_ItShouldReturnShort()
     {
-        private readonly HttpResponseMessage _response;
+        var urlRequest = new UrlRequest("https://www.example.com");
+        var expectedShortUrl = ShortenUrl.Shorten(urlRequest.LongUrl);
+        var httpClient = _factory.CreateClient();
 
-        public TestHttpMessageHandler(HttpResponseMessage response)
-        {
-            _response = response;
-        }
+        var response = await httpClient.PostAsync(requestUri: "/v1/shorten", content: JsonContent.Create(urlRequest));
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(_response);
-        }
+        Assert.Equal(expected: HttpStatusCode.OK, actual: response.StatusCode);
+        Assert.Equal(expected: expectedShortUrl, actual: await response.Content.ReadAsStringAsync());
     }
 }
-
