@@ -1,25 +1,18 @@
 default_install_hook_types:
-  - prepare-commit-msg
-  - pre-commit
-  - commit-msg
+    - prepare-commit-msg
+    - pre-commit
+    - commit-msg
 repos:
-  - repo: https://github.com/dotnet/format
-    rev: "v5.1.225507"
-    hooks:
-      - id: dotnet-format
-        entry: dotnet format --include-generated -v d
-        language: system
-        always_run: true
-        pass_filenames: false
-        stages: [ "commit" ]
-  - repo: https://github.com/avilaton/add-msg-issue-prefix-hook
-    rev: "v0.0.9"
-    hooks:
-      - id: add-msg-issue-prefix
-        name: add-msg-issue-prefix
-        args: [ "--insert-after", "^(build|ci|docs|feat|fix|perf|refactor|style|test|chore|revert|bump)", "--template", "({}):" ]
-        stages: [ "prepare-commit-msg" ]
-  - repo: https://github.com/commitizen-tools/commitizen
-    rev: "v3.13.0"
-    hooks:
-      - id: commitizen
+    - repo: https://github.com/dotnet/format
+      rev: "v5.1.225507"
+      hooks:
+          - id: dotnet-format
+            entry: dotnet format src/UrlShortener.sln --include-generated -v d
+            language: system
+            always_run: true
+            pass_filenames: false
+            stages: [ "commit" ]
+    - repo: https://github.com/commitizen-tools/commitizen
+      rev: "v3.13.0"
+      hooks:
+          - id: commitizen

@@ -8,9 +8,9 @@ public class PingControllerTests
     public void Root_ReturnsPong()
     {
         var controller = new PingController();
-        
+
         var result = controller.Root();
-        
+
         Assert.Equal("pong", result);
     }
 }
