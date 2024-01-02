@@ -4,7 +4,7 @@ default_install_hook_types:
     - commit-msg
 repos:
     - repo: https://github.com/dotnet/format
-      rev: "v5.1.225507"
+      rev: "v8.0.453106"
       hooks:
           - id: dotnet-format
             entry: dotnet format src/UrlShortener.sln --include-generated -v d
