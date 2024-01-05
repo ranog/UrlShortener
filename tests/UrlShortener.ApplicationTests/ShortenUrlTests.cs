@@ -40,11 +40,11 @@ public class ShortenUrlTests
     [Fact]
     public void ShortenUrl_WhenPassingLongUrl_ItShouldReturnShortWith7Characters()
     {
-        const int shortURLSize = 7;
+        const int shortUrlSize = 7;
         const string longUrl = "https://www.example.com";
 
         var shortUrl = ShortenUrl.Shorten(longUrl);
 
-        Assert.Equal(expected: shortURLSize, actual: shortUrl.Length);
+        Assert.Equal(expected: shortUrlSize, actual: shortUrl.Length);
     }
 }
