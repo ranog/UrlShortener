@@ -1,6 +1,6 @@
 using UrlShortener.Application;
 
-namespace UrlShortener.ApplicationTests;
+namespace UrlShortener.ServiceTests;
 
 public class ShortenUrlTests
 {
