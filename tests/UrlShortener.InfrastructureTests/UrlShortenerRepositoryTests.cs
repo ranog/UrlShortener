@@ -39,6 +39,8 @@ public class UrlShortenerRepositoryTests
         UrlShortenerRepository.Add(shortUrl2, longUrl2);
 
         Assert.Equal(expected: 2, actual: UrlShortenerRepository.Urls.Count);
+        Assert.Equal(expected: longUrl1, actual: UrlShortenerRepository.Get(shortUrl1));
+        Assert.Equal(expected: longUrl2, actual: UrlShortenerRepository.Get(shortUrl2));
     }
 
     [Fact]

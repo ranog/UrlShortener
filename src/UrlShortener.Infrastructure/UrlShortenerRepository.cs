@@ -14,6 +14,6 @@ public static class UrlShortenerRepository
 
     public static string Get(string shortUrl)
     {
-        return !Urls.ContainsKey(shortUrl) ? string.Empty : Urls[shortUrl];
+        return Urls.TryGetValue(shortUrl, out var longUrl) ? longUrl : string.Empty;
     }
 }
