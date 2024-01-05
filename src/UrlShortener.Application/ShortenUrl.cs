@@ -11,5 +11,4 @@ public abstract class ShortenUrl
         var hexString = Convert.ToHexString(hashBytes).ToLower();
         return hexString[..7];
     }
-
 }

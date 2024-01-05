@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.WebApiTests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.ApplicationTests", "..\tests\UrlShortener.ApplicationTests\UrlShortener.ApplicationTests.csproj", "{97145137-D5CD-4C54-BC57-C16B73AFD4C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.InfrastructureTests", "..\tests\UrlShortener.InfrastructureTests\UrlShortener.InfrastructureTests.csproj", "{E856C4A1-0F56-40F5-ADC9-465B9C773572}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Infrastructure", "UrlShortener.Infrastructure\UrlShortener.Infrastructure.csproj", "{2E873E62-A444-4051-9FE2-762EB00976F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,11 +44,21 @@ Global
 		{97145137-D5CD-4C54-BC57-C16B73AFD4C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97145137-D5CD-4C54-BC57-C16B73AFD4C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97145137-D5CD-4C54-BC57-C16B73AFD4C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E856C4A1-0F56-40F5-ADC9-465B9C773572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E856C4A1-0F56-40F5-ADC9-465B9C773572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E856C4A1-0F56-40F5-ADC9-465B9C773572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E856C4A1-0F56-40F5-ADC9-465B9C773572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E873E62-A444-4051-9FE2-762EB00976F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E873E62-A444-4051-9FE2-762EB00976F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E873E62-A444-4051-9FE2-762EB00976F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E873E62-A444-4051-9FE2-762EB00976F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{531A9806-D58C-4D12-AAA9-767816C827EC} = {A2B4475D-070F-41A0-A354-8A9AC8061CB9}
 		{742B811D-EDBC-46BE-94B1-E5F9FA9E2EB7} = {A2B4475D-070F-41A0-A354-8A9AC8061CB9}
 		{028507B2-4FD6-4D1D-AA87-07FC047B1B26} = {6988B351-CA59-46C6-B448-33FED97563A0}
 		{97145137-D5CD-4C54-BC57-C16B73AFD4C0} = {6988B351-CA59-46C6-B448-33FED97563A0}
+		{E856C4A1-0F56-40F5-ADC9-465B9C773572} = {6988B351-CA59-46C6-B448-33FED97563A0}
+		{2E873E62-A444-4051-9FE2-762EB00976F5} = {A2B4475D-070F-41A0-A354-8A9AC8061CB9}
 	EndGlobalSection
 EndGlobal
