@@ -7,6 +7,7 @@ public class UrlShortenerRepositoryTests
     [Fact]
     public void UrlShortenerRepository_WhenPassingShortUrl_ItShouldReturnLongUrl()
     {
+        UrlShortenerRepository.Urls.Clear();
         const string longUrl = "https://www.example.com";
         var shortUrl = ShortenUrl.Shorten(longUrl);
 
@@ -18,6 +19,7 @@ public class UrlShortenerRepositoryTests
     [Fact]
     public void UrlShortenerRepository_WhenAddingTheSameUrlOnlyOneShouldBeSavedInTheRepository()
     {
+        UrlShortenerRepository.Urls.Clear();
         const string longUrl = "https://www.example.com";
         var shortUrl = ShortenUrl.Shorten(longUrl);
 
@@ -30,6 +32,7 @@ public class UrlShortenerRepositoryTests
     [Fact]
     public void UrlShortenerRepository_WhenAddingDifferentUrlsAll_ItShouldBeSavedInTheRepository()
     {
+        UrlShortenerRepository.Urls.Clear();
         const string longUrl1 = "https://www.example.com";
         const string longUrl2 = "https://www.example.com/another";
         var shortUrl1 = ShortenUrl.Shorten(longUrl1);
@@ -46,6 +49,7 @@ public class UrlShortenerRepositoryTests
     [Fact]
     public void UrlShortenerRepository_WhenTheShortUrlDoesNotExist_ItShouldReturnAnEmptyString()
     {
+        UrlShortenerRepository.Urls.Clear();
         const string shortUrl = "1234567";
 
         var longUrl = UrlShortenerRepository.Get(shortUrl);
