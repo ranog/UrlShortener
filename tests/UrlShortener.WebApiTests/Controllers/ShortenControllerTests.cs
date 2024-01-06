@@ -43,6 +43,23 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
         Assert.Equal(expected: 7, actual: (await response.Content.ReadAsStringAsync()).Length);
     }
 
+    [Theory]
+    [InlineData("www.example.com")]
+    [InlineData("example.com")]
+    [InlineData("example")]
+    [InlineData(" ")]
+    [InlineData(null)]
+    [InlineData("https:")]
+    public async Task Shorten_WhenPassingAnInvalidUrl_ItShouldReturnAnErrorMessage(string longUrl)
+    {
+        var urlRequest = new UrlRequest(longUrl: longUrl);
+
+        var response = await _httpClient.PostAsync(requestUri: "/v1/shorten", content: JsonContent.Create(urlRequest));
+
+        Assert.Equal(expected: HttpStatusCode.BadRequest, actual: response.StatusCode);
+        Assert.Equal(expected: "Invalid URL", actual: await response.Content.ReadAsStringAsync());
+    }
+
     [Fact]
     public async Task GetLongUrl_WhenPassingShortUrl_ItShouldReturnLongUrl()
     {
