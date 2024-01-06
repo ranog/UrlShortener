@@ -1,5 +1,3 @@
-using UrlShortener.Service;
-
 namespace UrlShortener.Infrastructure;
 
 public class UrlShortenerRepositoryTests

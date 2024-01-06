@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 using UrlShortener.Application;
 using UrlShortener.Infrastructure;
-using UrlShortener.Service;
 
 namespace UrlShortener.WebApiTests.Controllers;
 
