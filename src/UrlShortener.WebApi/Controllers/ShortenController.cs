@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using UrlShortener.Application;
+using UrlShortener.Service;
 
 namespace UrlShortener.WebApi.Controllers;
 

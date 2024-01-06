@@ -4,6 +4,7 @@ using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 using UrlShortener.Application;
+using UrlShortener.Service;
 
 namespace UrlShortener.WebApiTests.Controllers;
 

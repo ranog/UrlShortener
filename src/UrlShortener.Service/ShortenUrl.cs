@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace UrlShortener.Application;
+namespace UrlShortener.Service;
 
 public abstract class ShortenUrl
 {
