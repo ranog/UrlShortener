@@ -1,18 +1,17 @@
-using UrlShortener.Application;
 using UrlShortener.Infrastructure;
 
 namespace UrlShortener.Service;
 
 public abstract class UrlHandler
 {
-    public static string Shorten(UrlRequest request)
+    public static string AddUrls(string longUrl, string shortUrl)
     {
-        UrlShortenerRepository.Add(request.ShortUrl, request.LongUrl);
-        return request.ShortUrl;
+        UrlShortenerRepository.Add(shortUrl, longUrl);
+        return shortUrl;
     }
 
-    public static string GetLongUrl(UrlRequest request)
+    public static string GetLongUrl(string shortUrl)
     {
-        return UrlShortenerRepository.Get(request.ShortUrl);
+        return UrlShortenerRepository.Get(shortUrl);
     }
 }

@@ -2,14 +2,11 @@ namespace UrlShortener.Application;
 
 public class UrlRequest
 {
-    public string ShortUrl { get; set; }
-    public string LongUrl { get; set; }
+    public string LongUrl { get; }
 
-
-    public UrlRequest(string longUrl, string shortUrl)
+    public UrlRequest(string longUrl)
     {
         LongUrl = longUrl;
-        ShortUrl = shortUrl;
     }
 }
 

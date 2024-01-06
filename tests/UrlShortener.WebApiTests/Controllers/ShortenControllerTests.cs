@@ -22,7 +22,7 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
     {
         const string longUrl = "https://www.example.com";
         var expectedShortUrl = ShortenUrl.Shorten(longUrl);
-        var urlRequest = new UrlRequest(longUrl: longUrl, shortUrl: expectedShortUrl);
+        var urlRequest = new UrlRequest(longUrl: longUrl);
         var httpClient = _factory.CreateClient();
 
         var response = await httpClient.PostAsync(requestUri: "/v1/shorten", content: JsonContent.Create(urlRequest));
