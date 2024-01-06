@@ -4,47 +4,45 @@ namespace UrlShortener.ServiceTests;
 
 public class ShortenUrlTests
 {
+    private readonly string _longUrl;
+    private readonly string _shortUrl;
+
+    public ShortenUrlTests()
+    {
+        _longUrl = "https://www.example.com";
+        _shortUrl = ShortenUrl.Shorten(_longUrl);
+    }
+
     [Fact]
     public void ShortenUrl_WhenPassingLongUrl_ItShouldReturnShort()
     {
-        const string longUrl = "https://www.example.com";
-
-        var shortUrl = ShortenUrl.Shorten(longUrl);
-
-        Assert.True(longUrl.Length > shortUrl.Length);
+        Assert.True(_longUrl.Length > _shortUrl.Length);
     }
 
     [Fact]
     public void ShortenUrl_WhenPassingSameLongUrl_ItShouldReturnSameShort()
     {
-        const string longUrl = "https://www.example.com";
+        var shortUrl = ShortenUrl.Shorten(_longUrl);
+        var sameShortUrl = ShortenUrl.Shorten(_longUrl);
 
-        var shortUrl1 = ShortenUrl.Shorten(longUrl);
-        var shortUrl2 = ShortenUrl.Shorten(longUrl);
-
-        Assert.Equal(expected: shortUrl1, actual: shortUrl2);
+        Assert.Equal(expected: shortUrl, actual: sameShortUrl);
     }
 
     [Fact]
     public void ShortenUrl_WhenPassingDifferentLongUrl_ItShouldReturnDifferentShort()
     {
-        const string longUrl1 = "https://www.example.com";
-        const string longUrl2 = "https://www.example.com/another";
+        const string anotherLongUrl = "https://www.example.com/another";
 
-        var shortUrl1 = ShortenUrl.Shorten(longUrl1);
-        var shortUrl2 = ShortenUrl.Shorten(longUrl2);
+        var anotherShortUrl = ShortenUrl.Shorten(anotherLongUrl);
 
-        Assert.NotEqual(expected: shortUrl1, actual: shortUrl2);
+        Assert.NotEqual(expected: _shortUrl, actual: anotherShortUrl);
     }
 
     [Fact]
     public void ShortenUrl_WhenPassingLongUrl_ItShouldReturnShortWith7Characters()
     {
         const int shortUrlSize = 7;
-        const string longUrl = "https://www.example.com";
 
-        var shortUrl = ShortenUrl.Shorten(longUrl);
-
-        Assert.Equal(expected: shortUrlSize, actual: shortUrl.Length);
+        Assert.Equal(expected: shortUrlSize, actual: _shortUrl.Length);
     }
 }
