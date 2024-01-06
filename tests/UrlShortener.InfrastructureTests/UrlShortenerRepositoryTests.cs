@@ -4,27 +4,30 @@ namespace UrlShortener.Infrastructure;
 
 public class UrlShortenerRepositoryTests
 {
+    private readonly string _longUrl;
+    private readonly string _shortUrl;
+
+    public UrlShortenerRepositoryTests()
+    {
+        _longUrl = "https://www.example.com";
+        _shortUrl = ShortenUrl.Shorten(_longUrl);
+        UrlShortenerRepository.Urls.Clear();
+    }
+
+
     [Fact]
     public void UrlShortenerRepository_WhenPassingShortUrl_ItShouldReturnLongUrl()
     {
-        UrlShortenerRepository.Urls.Clear();
-        const string longUrl = "https://www.example.com";
-        var shortUrl = ShortenUrl.Shorten(longUrl);
+        UrlShortenerRepository.Add(shortUrl: _shortUrl, longUrl: _longUrl);
 
-        UrlShortenerRepository.Add(shortUrl, longUrl);
-
-        Assert.Equal(expected: longUrl, actual: UrlShortenerRepository.Get(shortUrl));
+        Assert.Equal(expected: _longUrl, actual: UrlShortenerRepository.Get(_shortUrl));
     }
 
     [Fact]
     public void UrlShortenerRepository_WhenAddingTheSameUrlOnlyOneShouldBeSavedInTheRepository()
     {
-        UrlShortenerRepository.Urls.Clear();
-        const string longUrl = "https://www.example.com";
-        var shortUrl = ShortenUrl.Shorten(longUrl);
-
-        UrlShortenerRepository.Add(shortUrl, longUrl);
-        UrlShortenerRepository.Add(shortUrl, longUrl);
+        UrlShortenerRepository.Add(shortUrl: _shortUrl, longUrl: _longUrl);
+        UrlShortenerRepository.Add(shortUrl: _shortUrl, longUrl: _longUrl);
 
         Assert.Single(UrlShortenerRepository.Urls);
     }
@@ -32,27 +35,23 @@ public class UrlShortenerRepositoryTests
     [Fact]
     public void UrlShortenerRepository_WhenAddingDifferentUrlsAll_ItShouldBeSavedInTheRepository()
     {
-        UrlShortenerRepository.Urls.Clear();
-        const string longUrl1 = "https://www.example.com";
-        const string longUrl2 = "https://www.example.com/another";
-        var shortUrl1 = ShortenUrl.Shorten(longUrl1);
-        var shortUrl2 = ShortenUrl.Shorten(longUrl2);
+        const string anotherLongUrl = "https://www.example.com/another";
+        var anotherShortUrl = ShortenUrl.Shorten(anotherLongUrl);
 
-        UrlShortenerRepository.Add(shortUrl1, longUrl1);
-        UrlShortenerRepository.Add(shortUrl2, longUrl2);
+        UrlShortenerRepository.Add(shortUrl: _shortUrl, longUrl: _longUrl);
+        UrlShortenerRepository.Add(shortUrl: anotherShortUrl, longUrl: anotherLongUrl);
 
         Assert.Equal(expected: 2, actual: UrlShortenerRepository.Urls.Count);
-        Assert.Equal(expected: longUrl1, actual: UrlShortenerRepository.Get(shortUrl1));
-        Assert.Equal(expected: longUrl2, actual: UrlShortenerRepository.Get(shortUrl2));
+        Assert.Equal(expected: _longUrl, actual: UrlShortenerRepository.Get(_shortUrl));
+        Assert.Equal(expected: anotherLongUrl, actual: UrlShortenerRepository.Get(anotherShortUrl));
     }
 
     [Fact]
     public void UrlShortenerRepository_WhenTheShortUrlDoesNotExist_ItShouldReturnAnEmptyString()
     {
-        UrlShortenerRepository.Urls.Clear();
-        const string shortUrl = "1234567";
+        const string nonexistentShortUrl = "1234567";
 
-        var longUrl = UrlShortenerRepository.Get(shortUrl);
+        var longUrl = UrlShortenerRepository.Get(nonexistentShortUrl);
 
         Assert.Equal(expected: string.Empty, actual: longUrl);
     }
