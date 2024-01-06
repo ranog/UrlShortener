@@ -5,27 +5,30 @@ namespace UrlShortener.ServiceTests;
 
 public class UrlHandlerTests
 {
+    private readonly string _longUrl;
+    private readonly string _shortUrl;
+
+    public UrlHandlerTests()
+    {
+        _longUrl = "https://www.example.com";
+        _shortUrl = ShortenUrl.Shorten(_longUrl);
+    }
     [Fact]
     public void AddUrls_WhenPassingLongUrl_ItShouldReturnShort()
     {
-        const string longUrl = "https://www.example.com";
-        var expectedShortUrl = ShortenUrl.Shorten(longUrl);
+        var shortUrl = UrlHandler.AddUrls(_longUrl, _shortUrl);
 
-        var shortUrl = UrlHandler.AddUrls(longUrl, expectedShortUrl);
-
-        Assert.Equal(expected: expectedShortUrl, actual: shortUrl);
+        Assert.Equal(expected: _shortUrl, actual: shortUrl);
     }
 
     [Fact]
     public void GetLongUrl_WhenPassingShortUrl_ItShouldReturnLongUrl()
     {
-        const string expectedLongUrl = "https://www.example.com";
-        var shortUrl = ShortenUrl.Shorten(expectedLongUrl);
-        UrlShortenerRepository.Add(shortUrl, expectedLongUrl);
+        UrlShortenerRepository.Add(_shortUrl, _longUrl);
 
-        var longUrl = UrlHandler.GetLongUrl(shortUrl);
+        var longUrl = UrlHandler.GetLongUrl(_shortUrl);
 
-        Assert.Equal(expected: expectedLongUrl, actual: longUrl);
+        Assert.Equal(expected: _longUrl, actual: longUrl);
     }
 
     [Fact]
