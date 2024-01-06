@@ -11,7 +11,7 @@ public class ShortenController
     [Route("/v1/shorten")]
     public string Shorten([FromBody] UrlRequest request)
     {
-        var shortUrl = ShortenUrl.Shorten(request.LongUrl);
+        var shortUrl = Service.UrlShortener.Shorten(request.LongUrl);
         return UrlHandler.AddUrls(request.LongUrl, shortUrl);
     }
 

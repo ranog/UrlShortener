@@ -3,7 +3,7 @@ using System.Text;
 
 namespace UrlShortener.Service;
 
-public abstract class ShortenUrl
+public abstract class UrlShortener
 {
     public static string Shorten(string longUrl)
     {
