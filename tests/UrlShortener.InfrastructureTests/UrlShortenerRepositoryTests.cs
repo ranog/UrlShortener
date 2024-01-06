@@ -10,7 +10,7 @@ public class UrlShortenerRepositoryTests
     public UrlShortenerRepositoryTests()
     {
         _longUrl = "https://www.example.com";
-        _shortUrl = ShortenUrl.Shorten(_longUrl);
+        _shortUrl = Service.UrlShortener.Shorten(_longUrl);
         UrlShortenerRepository.Urls.Clear();
     }
 
@@ -36,7 +36,7 @@ public class UrlShortenerRepositoryTests
     public void UrlShortenerRepository_WhenAddingDifferentUrlsAll_ItShouldBeSavedInTheRepository()
     {
         const string anotherLongUrl = "https://www.example.com/another";
-        var anotherShortUrl = ShortenUrl.Shorten(anotherLongUrl);
+        var anotherShortUrl = Service.UrlShortener.Shorten(anotherLongUrl);
 
         UrlShortenerRepository.Add(shortUrl: _shortUrl, longUrl: _longUrl);
         UrlShortenerRepository.Add(shortUrl: anotherShortUrl, longUrl: anotherLongUrl);

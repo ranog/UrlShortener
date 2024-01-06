@@ -21,7 +21,7 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
     {
         _factory = factory;
         _longUrl = "https://www.example.com";
-        _shortUrl = ShortenUrl.Shorten(_longUrl);
+        _shortUrl = Service.UrlShortener.Shorten(_longUrl);
         _httpClient = _factory.CreateClient();
         _urlRequest = new UrlRequest(longUrl: _longUrl);
     }

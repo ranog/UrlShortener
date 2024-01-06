@@ -11,7 +11,7 @@ public class UrlHandlerTests
     public UrlHandlerTests()
     {
         _longUrl = "https://www.example.com";
-        _shortUrl = ShortenUrl.Shorten(_longUrl);
+        _shortUrl = Service.UrlShortener.Shorten(_longUrl);
     }
     [Fact]
     public void AddUrls_WhenPassingLongUrl_ItShouldReturnShort()
