@@ -1,9 +1,16 @@
-using UrlShortener.Service;
+using UrlShortener.Application;
 
-namespace UrlShortener.ServiceTests;
+namespace UrlShortener.ApplicationTests;
 
-public class UrlValidatorTests
+public class UrlRequestTests
 {
+    private readonly UrlRequest _request;
+
+    public UrlRequestTests()
+    {
+        _request = new UrlRequest("https://www.example.com");
+    }
+
     [Theory]
     [InlineData("https://www.example.com")]
     [InlineData("http://www.example.com")]
@@ -11,9 +18,9 @@ public class UrlValidatorTests
     [InlineData("https://")]
     public void ValidateUrl_WhenPassingValidUrl_ItShouldReturnUrl(string validUrl)
     {
-        var isValidate = UrlValidator.Validate(validUrl);
+        _request.LongUrl = validUrl;
 
-        Assert.True(isValidate);
+        Assert.True(_request.Validate());
     }
 
     [Theory]
@@ -25,8 +32,8 @@ public class UrlValidatorTests
     [InlineData("https:")]
     public void ValidateUrl_WhenPassingInvalidUrl_ItShouldReturnAnErrorMessage(string invalidUrl)
     {
-        var isValidate = UrlValidator.Validate(invalidUrl);
+        _request.LongUrl = invalidUrl;
 
-        Assert.False(isValidate);
+        Assert.False(_request.Validate());
     }
 }

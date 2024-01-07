@@ -11,15 +11,14 @@ public class ShortenController
     [Route("/v1/shorten")]
     public IActionResult Shorten([FromBody] UrlRequest request)
     {
-        var urlIsValid = UrlValidator.Validate(request.LongUrl);
-
-        if(!urlIsValid)
+        if(!request.Validate())
         {
             return new BadRequestObjectResult($"Url: {request.LongUrl} is not valid");
         }
 
         var shortUrl = Service.UrlShortener.Shorten(request.LongUrl);
         return new OkObjectResult(UrlHandler.AddUrls(request.LongUrl, shortUrl));
+
     }
 
     [HttpGet]
