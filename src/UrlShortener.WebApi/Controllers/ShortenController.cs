@@ -15,7 +15,7 @@ public class ShortenController
 
         if(!urlIsValid)
         {
-            return new BadRequestObjectResult($@"Url {request.LongUrl} is not valid");
+            return new BadRequestObjectResult($"Url: {request.LongUrl} is not valid");
         }
 
         var shortUrl = Service.UrlShortener.Shorten(request.LongUrl);
