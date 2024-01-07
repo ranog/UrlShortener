@@ -4,12 +4,7 @@ namespace UrlShortener.ApplicationTests;
 
 public class UrlRequestTests
 {
-    private readonly UrlRequest _request;
-
-    public UrlRequestTests()
-    {
-        _request = new UrlRequest("https://www.example.com");
-    }
+    private readonly UrlRequest _request = new("https://www.example.com");
 
     [Theory]
     [InlineData("https://www.example.com")]
