@@ -11,9 +11,9 @@ public class UrlValidatorTests
     [InlineData("https://")]
     public void ValidateUrl_WhenPassingValidUrl_ItShouldReturnUrl(string validUrl)
     {
-        var url = UrlValidator.Validate(validUrl);
+        var isValidate = UrlValidator.Validate(validUrl);
 
-        Assert.Equal(expected: validUrl, actual: url);
+        Assert.True(isValidate);
     }
 
     [Theory]
@@ -25,8 +25,8 @@ public class UrlValidatorTests
     [InlineData("https:")]
     public void ValidateUrl_WhenPassingInvalidUrl_ItShouldReturnAnErrorMessage(string invalidUrl)
     {
-        var url = UrlValidator.Validate(invalidUrl);
+        var isValidate = UrlValidator.Validate(invalidUrl);
 
-        Assert.Equal(expected: "Invalid URL", actual: url);
+        Assert.False(isValidate);
     }
 }

@@ -4,9 +4,10 @@ namespace UrlShortener.Service;
 
 public abstract class UrlValidator
 {
-    public static string Validate(string? url)
+    public static bool Validate(string? url)
     {
-        return url is not null && new UrlAttribute().IsValid(url) ? url : "Invalid URL";
+
+        return !string.IsNullOrEmpty(url) && new UrlAttribute().IsValid(url);
     }
 }
 

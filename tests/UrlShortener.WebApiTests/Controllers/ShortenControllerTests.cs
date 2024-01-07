@@ -57,7 +57,7 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
         var response = await _httpClient.PostAsync(requestUri: "/v1/shorten", content: JsonContent.Create(urlRequest));
 
         Assert.Equal(expected: HttpStatusCode.BadRequest, actual: response.StatusCode);
-        Assert.Equal(expected: "Invalid URL", actual: await response.Content.ReadAsStringAsync());
+        Assert.Equal(expected: $@"Url {longUrl} is not valid", actual: await response.Content.ReadAsStringAsync());
     }
 
     [Fact]

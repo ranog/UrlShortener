@@ -13,9 +13,9 @@ public class ShortenController
     {
         var urlIsValid = UrlValidator.Validate(request.LongUrl);
 
-        if(urlIsValid != request.LongUrl)
+        if(!urlIsValid)
         {
-            return new BadRequestObjectResult(urlIsValid);
+            return new BadRequestObjectResult($@"Url {request.LongUrl} is not valid");
         }
 
         var shortUrl = Service.UrlShortener.Shorten(request.LongUrl);
