@@ -27,6 +27,6 @@ curl --request GET \
 ```
 
 ### OBS:
-- A longUrl no cURL de POST é somente um exemplo, deve ser substituida por qualquer URL válida;
+- A longUrl no cURL de POST é somente um exemplo, pode ser substituida por qualquer URL de formato válido;
 - A shortUrl no cURL de GET é um exemplo gerado pelo sistema com base na longUrl do cURL de POST;
-- O projeto está configurado para rodar na porta 5230, mas pode ser alterado no arquivo src/UrlShortener.WebApi/Properties/launchSettings.json;
+- O projeto está configurado para rodar na porta 5230, mas pode ser alterado no arquivo src/UrlShortener.WebApi/Properties/launchSettings.json.
