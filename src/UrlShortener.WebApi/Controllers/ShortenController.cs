@@ -7,6 +7,8 @@ namespace UrlShortener.WebApi.Controllers;
 
 public class ShortenController
 {
+    private readonly UrlHandler _urlHandler = new();
+
     [HttpPost]
     [Route("/v1/shorten")]
     public IActionResult Shorten([FromBody] UrlRequest request)
@@ -17,15 +19,11 @@ public class ShortenController
         }
 
         var shortUrl = Service.UrlShortener.Shorten(request.LongUrl);
-        return new OkObjectResult(UrlHandler.AddUrls(request.LongUrl, shortUrl));
-
+        return new OkObjectResult(_urlHandler.AddUrl(request.LongUrl, shortUrl));
     }
 
     [HttpGet]
     [Route("/v1/{shortUrl}")]
-    public string GetLongUrl(string shortUrl)
-    {
-        return UrlHandler.GetLongUrl(shortUrl);
-    }
+    public string GetLongUrl(string shortUrl) => _urlHandler.GetLongUrl(shortUrl);
 }
 

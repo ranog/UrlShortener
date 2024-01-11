@@ -1,4 +1,3 @@
-using UrlShortener.Infrastructure;
 using UrlShortener.Service;
 
 namespace UrlShortener.ServiceTests;
@@ -7,16 +6,18 @@ public class UrlHandlerTests
 {
     private readonly string _longUrl;
     private readonly string _shortUrl;
+    private readonly UrlHandler _urlHandler;
 
     public UrlHandlerTests()
     {
         _longUrl = "https://www.example.com";
         _shortUrl = Service.UrlShortener.Shorten(_longUrl);
+        _urlHandler = new UrlHandler();
     }
     [Fact]
     public void AddUrls_WhenPassingLongUrl_ItShouldReturnShort()
     {
-        var shortUrl = UrlHandler.AddUrls(_longUrl, _shortUrl);
+        var shortUrl = _urlHandler.AddUrl(_longUrl, _shortUrl);
 
         Assert.Equal(expected: _shortUrl, actual: shortUrl);
     }
@@ -24,9 +25,9 @@ public class UrlHandlerTests
     [Fact]
     public void GetLongUrl_WhenPassingShortUrl_ItShouldReturnLongUrl()
     {
-        UrlShortenerRepository.Add(_shortUrl, _longUrl);
+        _urlHandler.AddUrl(_longUrl, _shortUrl);
 
-        var longUrl = UrlHandler.GetLongUrl(_shortUrl);
+        var longUrl = _urlHandler.GetLongUrl(_shortUrl);
 
         Assert.Equal(expected: _longUrl, actual: longUrl);
     }
@@ -34,7 +35,7 @@ public class UrlHandlerTests
     [Fact]
     public void GetLongUrl_WhenPassingShortUrl_ItShouldReturnEmptyString()
     {
-        var longUrl = UrlHandler.GetLongUrl(string.Empty);
+        var longUrl = _urlHandler.GetLongUrl(string.Empty);
 
         Assert.Equal(expected: string.Empty, actual: longUrl);
     }

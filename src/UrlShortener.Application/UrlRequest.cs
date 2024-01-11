@@ -11,10 +11,7 @@ public class UrlRequest
         LongUrl = longUrl;
     }
 
-    public bool Validate()
-    {
-        return !string.IsNullOrEmpty(LongUrl) && new UrlAttribute().IsValid(LongUrl);
-    }
+    public bool Validate() => !string.IsNullOrEmpty(LongUrl) && new UrlAttribute().IsValid(LongUrl);
 }
 
 

@@ -1,10 +1,10 @@
 namespace UrlShortener.Infrastructure;
 
-public static class UrlShortenerRepository
+public class UrlShortenerRepository : IUrlShortenerRepository
 {
     public static Dictionary<string, string> Urls { get; } = new();
 
-    public static void Add(string shortUrl, string longUrl)
+    public void Add(string shortUrl, string longUrl)
     {
         if(!Urls.TryAdd(shortUrl, longUrl))
         {
@@ -12,8 +12,5 @@ public static class UrlShortenerRepository
         }
     }
 
-    public static string Get(string shortUrl)
-    {
-        return Urls.TryGetValue(shortUrl, out var longUrl) ? longUrl : string.Empty;
-    }
+    public string Get(string shortUrl) => Urls.TryGetValue(shortUrl, out var longUrl) ? longUrl : string.Empty;
 }

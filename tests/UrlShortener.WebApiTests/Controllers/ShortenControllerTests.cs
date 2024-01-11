@@ -4,13 +4,12 @@ using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 using UrlShortener.Application;
-using UrlShortener.Infrastructure;
+using UrlShortener.Service;
 
 namespace UrlShortener.WebApiTests.Controllers;
 
 public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly WebApplicationFactory<Program> _factory;
     private readonly string _longUrl;
     private readonly string _shortUrl;
     private readonly HttpClient _httpClient;
@@ -18,10 +17,9 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
 
     public ShortenControllerTests(WebApplicationFactory<Program> factory)
     {
-        _factory = factory;
         _longUrl = "https://www.example.com";
         _shortUrl = Service.UrlShortener.Shorten(_longUrl);
-        _httpClient = _factory.CreateClient();
+        _httpClient = factory.CreateClient();
         _urlRequest = new UrlRequest(longUrl: _longUrl);
     }
 
@@ -63,7 +61,7 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
     [Fact]
     public async Task GetLongUrl_WhenPassingShortUrl_ItShouldReturnLongUrl()
     {
-        UrlShortenerRepository.Add(longUrl: _longUrl, shortUrl: _shortUrl);
+        new UrlHandler().AddUrl(longUrl: _longUrl, shortUrl: _shortUrl);
 
         var response = await _httpClient.GetAsync($"/v1/{_shortUrl}");
 

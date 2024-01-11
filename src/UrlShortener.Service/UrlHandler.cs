@@ -2,16 +2,15 @@ using UrlShortener.Infrastructure;
 
 namespace UrlShortener.Service;
 
-public abstract class UrlHandler
+public class UrlHandler
 {
-    public static string AddUrls(string longUrl, string shortUrl)
+    private readonly UrlShortenerRepository _urlShortenerRepository = new();
+
+    public string AddUrl(string longUrl, string shortUrl)
     {
-        UrlShortenerRepository.Add(shortUrl, longUrl);
+        _urlShortenerRepository.Add(shortUrl, longUrl);
         return shortUrl;
     }
 
-    public static string GetLongUrl(string shortUrl)
-    {
-        return UrlShortenerRepository.Get(shortUrl);
-    }
+    public string GetLongUrl(string shortUrl) => _urlShortenerRepository.Get(shortUrl);
 }

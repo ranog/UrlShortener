@@ -6,8 +6,5 @@ public class PingController
 {
     [HttpGet]
     [Route("/v1/ping")]
-    public string Root()
-    {
-        return "pong";
-    }
+    public string Root() => "pong";
 }
