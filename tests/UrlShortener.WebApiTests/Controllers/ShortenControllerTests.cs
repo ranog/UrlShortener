@@ -55,13 +55,13 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
         var response = await _httpClient.PostAsync(requestUri: "/v1/shorten", content: JsonContent.Create(urlRequest));
 
         Assert.Equal(expected: HttpStatusCode.BadRequest, actual: response.StatusCode);
-        Assert.Equal(expected: $@"Url: {longUrl} is not valid", actual: await response.Content.ReadAsStringAsync());
+        Assert.Equal(expected: $"Url: {longUrl} is not valid", actual: await response.Content.ReadAsStringAsync());
     }
 
     [Fact]
     public async Task GetLongUrl_WhenPassingShortUrl_ItShouldReturnLongUrl()
     {
-        new UrlHandler().AddUrl(longUrl: _longUrl, shortUrl: _shortUrl);
+        new UrlHandler().AddUrl(_urlRequest);
 
         var response = await _httpClient.GetAsync($"/v1/{_shortUrl}");
 
