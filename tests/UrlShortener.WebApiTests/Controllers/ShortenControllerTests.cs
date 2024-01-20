@@ -14,19 +14,23 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
     private readonly string _shortUrl;
     private readonly HttpClient _httpClient;
     private readonly UrlRequest _urlRequest;
+    private readonly string _uri;
+
 
     public ShortenControllerTests(WebApplicationFactory<Program> factory)
     {
         _longUrl = "https://www.example.com";
         _shortUrl = Service.UrlShortener.Shorten(_longUrl);
         _httpClient = factory.CreateClient();
+        _httpClient.BaseAddress = new Uri("http://localhost:5230/");
         _urlRequest = new UrlRequest(longUrl: _longUrl);
+        _uri = "api/v1/data/shorten";
     }
 
     [Fact]
     public async Task Shorten_WhenPassingLongUrl_ItShouldReturnShort()
     {
-        var response = await _httpClient.PostAsync(requestUri: "/v1/shorten", content: JsonContent.Create(_urlRequest));
+        var response = await _httpClient.PostAsync(requestUri: _uri, content: JsonContent.Create(_urlRequest));
 
         Assert.Equal(expected: HttpStatusCode.OK, actual: response.StatusCode);
         Assert.Equal(expected: _shortUrl, actual: await response.Content.ReadAsStringAsync());
@@ -35,7 +39,7 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
     [Fact]
     public async Task Shorten_WhenPassingLongUrl_ItShouldReturnShortWith7Characters()
     {
-        var response = await _httpClient.PostAsync(requestUri: "/v1/shorten", content: JsonContent.Create(_urlRequest));
+        var response = await _httpClient.PostAsync(requestUri: _uri, content: JsonContent.Create(_urlRequest));
 
         Assert.Equal(expected: HttpStatusCode.OK, actual: response.StatusCode);
         Assert.Equal(expected: 7, actual: (await response.Content.ReadAsStringAsync()).Length);
@@ -52,7 +56,7 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
     {
         var urlRequest = new UrlRequest(longUrl: longUrl);
 
-        var response = await _httpClient.PostAsync(requestUri: "/v1/shorten", content: JsonContent.Create(urlRequest));
+        var response = await _httpClient.PostAsync(requestUri: _uri, content: JsonContent.Create(urlRequest));
 
         Assert.Equal(expected: HttpStatusCode.BadRequest, actual: response.StatusCode);
         Assert.Equal(expected: $"Url: {longUrl} is not valid", actual: await response.Content.ReadAsStringAsync());
@@ -63,16 +67,16 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
     {
         new UrlHandler().AddUrl(_urlRequest);
 
-        var response = await _httpClient.GetAsync($"/v1/{_shortUrl}");
+        var response = await _httpClient.GetAsync($"api/v1/{_shortUrl}");
 
-        Assert.Equal(expected: HttpStatusCode.OK, actual: response.StatusCode);
-        Assert.Equal(expected: _longUrl, actual: await response.Content.ReadAsStringAsync());
+        Assert.Equal(expected: HttpStatusCode.Moved, actual: response.StatusCode);
+        Assert.Equal(expected: _longUrl, actual: response.Headers.Location?.ToString());
     }
 
     [Fact]
     public async Task GetLongUrl_WhenPassingShortUrl_ItShouldReturnEmptyString()
     {
-        var response = await _httpClient.GetAsync("/v1/");
+        var response = await _httpClient.GetAsync("api/v1/");
 
         Assert.Equal(expected: HttpStatusCode.NotFound, actual: response.StatusCode);
         Assert.Equal(expected: string.Empty, actual: await response.Content.ReadAsStringAsync());

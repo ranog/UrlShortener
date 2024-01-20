@@ -5,11 +5,12 @@ using UrlShortener.Service;
 
 namespace UrlShortener.WebApi.Controllers;
 
+[Route("api/v1")]
 public class ShortenController : ControllerBase
 {
     private readonly UrlHandler _urlHandler = new();
 
-    [HttpPost("/v1/shorten")]
+    [HttpPost("data/shorten")]
     public IActionResult Shorten([FromBody] UrlRequest request)
     {
         if(!request.Validate())
@@ -20,7 +21,7 @@ public class ShortenController : ControllerBase
         return new OkObjectResult(_urlHandler.AddUrl(request));
     }
 
-    [HttpGet("/v1/{shortUrl}")]
+    [HttpGet("{shortUrl}")]
     public IActionResult GetLongUrl([FromRoute] string shortUrl) => RedirectPermanent(_urlHandler.GetLongUrl(shortUrl));
 }
 
