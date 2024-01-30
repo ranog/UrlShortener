@@ -24,4 +24,3 @@ public class ShortenController : ControllerBase
     [HttpGet("{shortUrl}")]
     public IActionResult GetLongUrl([FromRoute] string shortUrl) => RedirectPermanent(_urlHandler.GetLongUrl(shortUrl));
 }
-
