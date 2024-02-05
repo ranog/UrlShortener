@@ -9,11 +9,12 @@ public class UrlHandlerTests
     private readonly string _shortUrl;
     private readonly UrlHandler _urlHandler;
     private readonly UrlRequest _urlRequest;
+    private readonly Service.UrlShortener _urlShortener = new();
 
     public UrlHandlerTests()
     {
         _longUrl = "https://www.example.com";
-        _shortUrl = Service.UrlShortener.Shorten(_longUrl);
+        _shortUrl = _urlShortener.Shorten(_longUrl);
         _urlHandler = new UrlHandler();
         _urlRequest = new UrlRequest(longUrl: _longUrl);
     }

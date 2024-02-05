@@ -3,9 +3,9 @@ using System.Text;
 
 namespace UrlShortener.Service;
 
-public abstract class UrlShortener
+public class UrlShortener
 {
-    public static string Shorten(string longUrl)
+    public string Shorten(string longUrl)
     {
         var hashBytes = SHA256.HashData(Encoding.UTF8.GetBytes(longUrl));
         var hexString = Convert.ToHexString(hashBytes).ToLower();

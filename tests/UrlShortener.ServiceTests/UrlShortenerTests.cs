@@ -4,11 +4,13 @@ public class UrlShortenerTests
 {
     private readonly string _longUrl;
     private readonly string _shortUrl;
+    private readonly Service.UrlShortener _urlShortener = new();
 
     public UrlShortenerTests()
     {
+
         _longUrl = "https://www.example.com";
-        _shortUrl = Service.UrlShortener.Shorten(_longUrl);
+        _shortUrl = _urlShortener.Shorten(_longUrl);
     }
 
     [Fact]
@@ -20,8 +22,8 @@ public class UrlShortenerTests
     [Fact]
     public void ShortenUrl_WhenPassingSameLongUrl_ItShouldReturnSameShort()
     {
-        var shortUrl = Service.UrlShortener.Shorten(_longUrl);
-        var sameShortUrl = Service.UrlShortener.Shorten(_longUrl);
+        var shortUrl = _urlShortener.Shorten(_longUrl);
+        var sameShortUrl = _urlShortener.Shorten(_longUrl);
 
         Assert.Equal(expected: shortUrl, actual: sameShortUrl);
     }
@@ -31,7 +33,7 @@ public class UrlShortenerTests
     {
         const string anotherLongUrl = "https://www.example.com/another";
 
-        var anotherShortUrl = Service.UrlShortener.Shorten(anotherLongUrl);
+        var anotherShortUrl = _urlShortener.Shorten(anotherLongUrl);
 
         Assert.NotEqual(expected: _shortUrl, actual: anotherShortUrl);
     }

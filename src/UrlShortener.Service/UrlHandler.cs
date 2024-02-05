@@ -6,10 +6,11 @@ namespace UrlShortener.Service;
 public class UrlHandler
 {
     private readonly UrlShortenerRepository _urlShortenerRepository = new();
+    private readonly UrlShortener _urlShortener = new();
 
     public string AddUrl(UrlRequest request)
     {
-        var shortUrl = UrlShortener.Shorten(request.LongUrl);
+        var shortUrl = _urlShortener.Shorten(request.LongUrl);
         _urlShortenerRepository.Add(shortUrl, request.LongUrl);
         return shortUrl;
     }

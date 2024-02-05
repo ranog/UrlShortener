@@ -15,12 +15,13 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
     private readonly HttpClient _httpClient;
     private readonly UrlRequest _urlRequest;
     private readonly string _uri;
+    private readonly Service.UrlShortener _urlShortener = new();
 
 
     public ShortenControllerTests(WebApplicationFactory<Program> factory)
     {
         _longUrl = "https://www.dummy.com/";
-        _shortUrl = Service.UrlShortener.Shorten(_longUrl);
+        _shortUrl = _urlShortener.Shorten(_longUrl);
         _httpClient = factory.CreateDefaultClient();
         _urlRequest = new UrlRequest(longUrl: _longUrl);
         _uri = "api/v1/data/shorten";
