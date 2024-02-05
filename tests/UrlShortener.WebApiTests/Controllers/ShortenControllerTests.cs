@@ -4,7 +4,6 @@ using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 using UrlShortener.Application;
-using UrlShortener.Service;
 
 namespace UrlShortener.WebApiTests.Controllers;
 
@@ -65,7 +64,7 @@ public class ShortenControllerTests : IClassFixture<WebApplicationFactory<Progra
     [Fact]
     public async Task GetLongUrl_WhenPassingShortUrl_ItShouldReturnLongUrl()
     {
-        new UrlHandler().AddUrl(_urlRequest);
+        await _httpClient.PostAsync(requestUri: _uri, content: JsonContent.Create(_urlRequest));
 
         var response = await _httpClient.GetAsync($"api/v1/{_shortUrl}");
 

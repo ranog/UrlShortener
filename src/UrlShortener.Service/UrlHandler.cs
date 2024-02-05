@@ -5,8 +5,14 @@ namespace UrlShortener.Service;
 
 public class UrlHandler
 {
-    private readonly UrlShortenerRepository _urlShortenerRepository = new();
-    private readonly UrlShortener _urlShortener = new();
+    private readonly UrlShortenerRepository _urlShortenerRepository;
+    private readonly UrlShortener _urlShortener;
+
+    public UrlHandler(UrlShortenerRepository urlShortenerRepository, UrlShortener urlShortener)
+    {
+        _urlShortenerRepository = urlShortenerRepository;
+        _urlShortener = urlShortener;
+    }
 
     public string AddUrl(UrlRequest request)
     {
