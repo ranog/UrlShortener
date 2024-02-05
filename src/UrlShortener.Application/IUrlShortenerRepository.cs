@@ -1,4 +1,4 @@
-namespace UrlShortener.Infrastructure;
+namespace UrlShortener.Application;
 
 public interface IUrlShortenerRepository
 {

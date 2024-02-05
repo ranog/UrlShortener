@@ -1,3 +1,4 @@
+using UrlShortener.Application;
 using UrlShortener.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);

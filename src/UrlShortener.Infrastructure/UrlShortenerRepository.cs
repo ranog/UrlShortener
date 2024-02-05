@@ -1,3 +1,5 @@
+using UrlShortener.Application;
+
 namespace UrlShortener.Infrastructure;
 
 public class UrlShortenerRepository : IUrlShortenerRepository
