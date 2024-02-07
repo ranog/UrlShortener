@@ -1,5 +1,4 @@
 using UrlShortener.Application;
-using UrlShortener.Infrastructure;
 using UrlShortener.Service;
 
 namespace UrlShortener.ServiceTests;
@@ -8,16 +7,14 @@ public class UrlHandlerTests
 {
     private readonly string _longUrl;
     private readonly string _shortUrl;
-    private readonly UrlHandler _urlHandler;
     private readonly UrlRequest _urlRequest;
+    private readonly UrlHandler _urlHandler = new();
     private readonly Service.UrlShortener _urlShortener = new();
-    private readonly UrlShortenerRepository _urlShortenerRepository = new();
 
     public UrlHandlerTests()
     {
         _longUrl = "https://www.example.com";
         _shortUrl = _urlShortener.Shorten(_longUrl);
-        _urlHandler = new UrlHandler(urlShortenerRepository: _urlShortenerRepository, urlShortener: _urlShortener);
         _urlRequest = new UrlRequest(longUrl: _longUrl);
     }
     [Fact]
